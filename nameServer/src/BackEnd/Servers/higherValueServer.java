@@ -16,14 +16,39 @@ package BackEnd.Servers;
  * 
  */
 
-import BackEnd.Servers.functionServer;
+import Classes.Categoria;
+import Classes.Despesa;
+import Classes.Periodo;
+import Classes.Usuario;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
-public class higherValueServer extends UnicastRemoteObject implements functionServer {
+public class higherValueServer extends UnicastRemoteObject {
     
     public higherValueServer() throws RemoteException {
         
+    }
+    
+    public String maiorValor(Usuario user, int mes, int ano) throws RemoteException {
+        double maiorValor = 0;
+        String categoriaMaiorValor = "";
+        List<Categoria> categorias = user.getCategorias();
+        for (Categoria categoria : categorias) {
+            double total = 0;
+            for (Periodo periodo : categoria.getPeriodos()) {
+                if (periodo.getMes() == mes && periodo.getAno() == ano) {
+                    for (Despesa despesa : periodo.getDespesas()) {
+                        total += despesa.getValor();
+                    }
+                }
+            }
+            if (total > maiorValor) {
+                maiorValor = total;
+                categoriaMaiorValor = categoria.getTitulo();
+            }
+        }
+        return categoriaMaiorValor;
     }
     
 }

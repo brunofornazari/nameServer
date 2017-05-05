@@ -3,14 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD:nameServer/src/BackEnd/Servers/appAverage.java
-package BackEnd.Servers;
 
-=======
-package BackEnd.SeveralServers;
-import BackEnd.Servidor;
-import Classes.ServidorIndividual;
->>>>>>> origin/master:nameServer/src/BackEnd/SeveralServers/appAverage.java
 /**
  *
  * @author Engenharia de Computação - 9º Semestre
@@ -22,6 +15,10 @@ import Classes.ServidorIndividual;
  * 
  */
 
+package BackEnd.Servers;
+
+import BackEnd.Servidor;
+import Classes.ServidorIndividual;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.util.Scanner;
@@ -33,7 +30,7 @@ public class appAverage {
             Scanner console = new Scanner(System.in);
             String entrada = "";
             
-            functionServer avgServer = new averageServer();
+            averageServer avgServer = new averageServer();
             LocateRegistry.createRegistry(1100);
             Naming.rebind("rmi://localhost:1100/Average", avgServer); 
             
@@ -53,6 +50,9 @@ public class appAverage {
                         }
                     break;
                     case "Desligar":
+                        if (_servico.getStatus() == 2) {
+                            _server.desconectarServico(_servico);
+                        }
                         System.exit(0);
                     break;
                 }
