@@ -29,6 +29,11 @@ public class nameServer {
             boolean isOnline = false;
             
             while(entrada.compareTo("Desligar") != 0){
+                System.out.println("Conectar - Conecta O Servidor de Nomes");
+                System.out.println("Desconectar Serviço - Desconecta um Serviço específico");
+                System.out.println("Desconectar Todos - Desconecta todos os serviços");
+                System.out.println("Desligar - Desativa o servidor de nomes");
+                
                 entrada = console.next();
                 
                 switch(entrada){
