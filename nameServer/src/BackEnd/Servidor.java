@@ -9,7 +9,7 @@ public interface Servidor extends Remote // necessita herdar para obter invocaç
 {
 	List<ServidorIndividual> _servicos = new ArrayList<ServidorIndividual>();
         
-        public ServidorIndividual getServidor(String sTypo);
-        public void conectarServico(ServidorIndividual servico);
-        public boolean desconectarServico(ServidorIndividual servico);
+        public ServidorIndividual getServidor(String sTypo) throws RemoteException;
+        public ServidorIndividual conectarServico(ServidorIndividual servico) throws RemoteException;
+        public boolean desconectarServico(ServidorIndividual servico) throws RemoteException;
 }
