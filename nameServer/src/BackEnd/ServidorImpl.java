@@ -1,9 +1,14 @@
 package BackEnd;
 
 import Classes.ServidorIndividual;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     
@@ -56,12 +61,28 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     public boolean desconectarServico(ServidorIndividual servico){
         List<ServidorIndividual> servicos = _servicos;
         for(ServidorIndividual server : servicos){
-            if(servico.getName().compareTo(server.getName()) == 0 && servico.getAddress().compareTo(server.getAddress()) == 0){
+            if(servico == server){
                 servicos.remove(server);
                 return true;
             }
         }
-        
         return false;
+    }
+    
+
+    public boolean desconectarServico(String sServico){
+        List<ServidorIndividual> servicos = _servicos;
+        for(ServidorIndividual server : servicos){
+            if(server.getName().compareTo(sServico) == 0){
+                servicos.remove(server);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public void desconectarTodosOsServicos(){
+        _servicos.clear();
     }
 }
