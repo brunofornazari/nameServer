@@ -3,9 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD:nameServer/src/BackEnd/Servers/appAverage.java
+package BackEnd.Servers;
+
+=======
 package BackEnd.SeveralServers;
 import BackEnd.Servidor;
 import Classes.ServidorIndividual;
+>>>>>>> origin/master:nameServer/src/BackEnd/SeveralServers/appAverage.java
 /**
  *
  * @author Engenharia de Computação - 9º Semestre

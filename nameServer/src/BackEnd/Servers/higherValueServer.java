@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BackEnd.SeveralServers;
+package BackEnd.Servers;
 
 /**
  *
@@ -16,8 +16,14 @@ package BackEnd.SeveralServers;
  * 
  */
 
-import java.rmi.*;
+import BackEnd.Servers.functionServer;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public interface functionServer extends Remote {
+public class higherValueServer extends UnicastRemoteObject implements functionServer {
+    
+    public higherValueServer() throws RemoteException {
+        
+    }
     
 }
