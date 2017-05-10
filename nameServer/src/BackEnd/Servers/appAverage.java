@@ -29,25 +29,36 @@ public class appAverage {
         try {
             Scanner console = new Scanner(System.in);
             String entrada = "";
+            Servidor _server = null;
+                    
+            averageServerImpl avgServer = new averageServerImpl();
             
-            averageServer avgServer = new averageServer();
-            LocateRegistry.createRegistry(1100);
-            Naming.rebind("rmi://localhost:1100/Average", avgServer); 
+            try{
+                _server = (Servidor) Naming.lookup("rmi://localhost:1099/Servidor");                                                 
+            }catch(Error e){
+                System.out.println("Não foi possível conectar ao servidor de nomes: " + e.getMessage());
+                System.exit(0);
+            }
             
-            Servidor _server = (Servidor) Naming.lookup("rmi://localhost:1099/Servidor");
             
-            ServidorIndividual _servico = new ServidorIndividual("Teste", "rmi://localhost:1100/Average");
+            ServidorIndividual _servico = new ServidorIndividual("Teste", "rmi://localhost:1100/AvgServer");
             
             while(entrada.compareTo("Desligar") != 0){
                 entrada = console.next();
                 switch(entrada){
                     case "Conectar":
+                        LocateRegistry.createRegistry(1100);
+                        Naming.rebind(_servico.getAddress(), avgServer);
+                        
                         System.out.println(_server.conectarServico(_servico).getStatusMessage());
                     break;
                     case "Desconectar":
                         if(_server.desconectarServico(_servico)){
                             System.out.println("Desconectado do NameServer");
                         }
+                    break;
+                    case "Verificar":
+                        System.out.println(_servico.getStatusMessage());
                     break;
                     case "Desligar":
                         if (_servico.getStatus() == 2) {

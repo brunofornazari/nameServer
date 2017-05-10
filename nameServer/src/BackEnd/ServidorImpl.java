@@ -1,5 +1,6 @@
 package BackEnd;
 
+import BackEnd.Servers.averageServer;
 import Classes.ServidorIndividual;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -31,7 +32,7 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     }
     
     @Override
-    public ServidorIndividual conectarServico(ServidorIndividual servico){
+    public ServidorIndividual conectarServico(ServidorIndividual servico) throws RemoteException{
         if(servico instanceof ServidorIndividual){
             boolean tempStatus = true;
             for(ServidorIndividual tempServ : _servicos){
@@ -47,7 +48,14 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
             if(tempStatus == true){
                 _servicos.add(servico);
                 System.out.println(servico.getName() + " Conectado!");
-                servico.setStatus(2);
+                try {
+                    averageServer temp = (averageServer) Naming.lookup(servico.getAddress());
+                    temp.getServico().setStatus(2);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(ServidorImpl.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(ServidorImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
         } else {
@@ -62,6 +70,7 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
         List<ServidorIndividual> servicos = _servicos;
         for(ServidorIndividual server : servicos){
             if(servico == server){
+                server.setStatus(0);
                 servicos.remove(server);
                 return true;
             }

@@ -5,43 +5,19 @@
  */
 package BackEnd.Servers;
 
+import Classes.ServidorIndividual;
+import Classes.Usuario;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  *
- * @author Engenharia de Computação - 9º Semestre
- * André Apollo
- * Bruno Fornazari
- * Felipe Arias
- * Filipe Nathan
- * Thales Correa
- * 
+ * @author Dell
  */
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-import Classes.*;
-
-public class averageServer extends UnicastRemoteObject {
+public interface averageServer extends Remote {
     
-    public averageServer() throws RemoteException {
-        
-    }
+    ServidorIndividual _servico = null;
     
-    public double calculaMedia(Usuario user, int mes, int ano) throws RemoteException {
-        double total = 0;
-        double media = 0;
-        List<Categoria> categorias = user.getCategorias();
-        for (Categoria categoria : categorias) {
-            for (Periodo periodo : categoria.getPeriodos()) {
-                if (periodo.getMes() == mes && periodo.getAno() == ano) {
-                    for (Despesa despesa : periodo.getDespesas()) {
-                        total += despesa.getValor();
-                    }
-                }
-            }
-        }
-        media = total/categorias.size();
-        return media;
-    }
-    
+    public double calculaMedia(Usuario user, int mes, int ano) throws RemoteException;
+    public ServidorIndividual getServico() throws RemoteException;
 }
