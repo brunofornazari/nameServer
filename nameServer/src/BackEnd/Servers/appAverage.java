@@ -33,17 +33,16 @@ public class appAverage {
                     
             averageServerImpl avgServer = new averageServerImpl();
             
-            try{
+            try {
                 _server = (Servidor) Naming.lookup("rmi://localhost:1099/Servidor");                                                 
-            }catch(Error e){
+            } catch (Error e) {
                 System.out.println("Não foi possível conectar ao servidor de nomes: " + e.getMessage());
                 System.exit(0);
             }
             
-
             ServidorIndividual _servico = new ServidorIndividual("FazMedia", "rmi://localhost:1099/Average");
             
-            while(entrada.compareTo("Desligar") != 0){
+            while (entrada.compareTo("Desligar") != 0) {
                 System.out.println("\nConectar - Conecta ao Servidor de Nomes");
                 System.out.println("Verificar - Verifica o Status de Conexão");
                 System.out.println("Desconectar - Desconecta do Servidor de Nomes");
@@ -72,8 +71,6 @@ public class appAverage {
                     break;
                 }
             }
-            
-            
             
         } catch (Exception e) {
             System.out.println("Trouble: " + e.getMessage());

@@ -26,18 +26,19 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class averageServerImpl extends UnicastRemoteObject implements avgServer {
+public class higherValueServerImpl extends UnicastRemoteObject implements hvServer {
     
-    public averageServerImpl() throws RemoteException{
+    public higherValueServerImpl() throws RemoteException {
         super();
     }
     
     @Override
-    public double calculaMedia(Usuario user, int mes, int ano) throws RemoteException {
-        double total = 0;
-        double media = 0;
+    public String MaiorValor(Usuario user, int mes, int ano) throws RemoteException {
+        double maiorValor = 0;
+        String categoriaMaiorValor = "";
         List<Categoria> categorias = user.getCategorias();
         for (Categoria categoria : categorias) {
+            double total = 0;
             for (Periodo periodo : categoria.getPeriodos()) {
                 if (periodo.getMes() == mes && periodo.getAno() == ano) {
                     for (Despesa despesa : periodo.getDespesas()) {
@@ -45,8 +46,11 @@ public class averageServerImpl extends UnicastRemoteObject implements avgServer 
                     }
                 }
             }
+            if (total > maiorValor) {
+                maiorValor = total;
+                categoriaMaiorValor = categoria.getTitulo();
+            }
         }
-        media = total/categorias.size();
-        return media; 
+        return categoriaMaiorValor;
     }
 }

@@ -3,14 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/**
+ *
+ * @author Engenharia de Computação - 9º Semestre
+ * André Apollo
+ * Bruno Fornazari
+ * Felipe Arias
+ * Filipe Nathan
+ * Thales Correa
+ * 
+ */
+
 package Classes;
 
 import java.io.Serializable;
 
-/**
- *
- * @author T-Gamer
- */
 public class ServidorIndividual implements Serializable {
     
     private static final long serialVersionUID = 1L;

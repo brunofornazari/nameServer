@@ -3,11 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BackEnd;
-
-import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
-import java.util.Scanner;
 
 /**
  *
@@ -19,6 +14,13 @@ import java.util.Scanner;
  * Thales Correa
  * 
  */
+
+package BackEnd;
+
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.util.Scanner;
+
 public class nameServer {
     public static void main(String[] args) {
     	try {
