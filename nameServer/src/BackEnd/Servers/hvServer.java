@@ -24,6 +24,6 @@ import java.rmi.RemoteException;
 
 public interface hvServer extends Remote{
     
-    public String MaiorValor(Usuario user, int mes, int ano) throws RemoteException;
+    public String maiorValor(Usuario user, int mes, int ano) throws RemoteException;
     
 }

@@ -33,7 +33,7 @@ public class higherValueServerImpl extends UnicastRemoteObject implements hvServ
     }
     
     @Override
-    public String MaiorValor(Usuario user, int mes, int ano) throws RemoteException {
+    public String maiorValor(Usuario user, int mes, int ano) throws RemoteException {
         double maiorValor = 0;
         String categoriaMaiorValor = "";
         List<Categoria> categorias = user.getCategorias();

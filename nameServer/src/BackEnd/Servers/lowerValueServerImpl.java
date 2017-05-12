@@ -33,7 +33,7 @@ public class lowerValueServerImpl extends UnicastRemoteObject implements lvServe
     }
     
     @Override
-    public String MenorValor(Usuario user, int mes, int ano) throws RemoteException {
+    public String menorValor(Usuario user, int mes, int ano) throws RemoteException {
         double menorValor = 0;
         String categoriaMenorValor = "";
         List<Categoria> categorias = user.getCategorias();

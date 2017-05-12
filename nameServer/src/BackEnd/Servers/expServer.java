@@ -22,8 +22,8 @@ import Classes.Usuario;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface lvServer extends Remote{
+public interface expServer extends Remote {
     
-    public String menorValor(Usuario user, int mes, int ano) throws RemoteException;
+    public String ctrlDespesa(Usuario user, int mes, int ano) throws RemoteException;
     
 }
