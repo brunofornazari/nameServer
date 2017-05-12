@@ -1,6 +1,6 @@
 package BackEnd;
 
-import BackEnd.Servers.averageServer;
+import BackEnd.Servers.avgServer;
 import Classes.ServidorIndividual;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -18,7 +18,7 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     }
 
     @Override
-    public ServidorIndividual getServidor(String sFuncao) {
+    public ServidorIndividual getServidor(String sFuncao) throws RemoteException {
         List<ServidorIndividual> servicos = _servicos;
         System.out.println("Requisitando " + sFuncao);
         for(ServidorIndividual servico : servicos){
@@ -32,15 +32,16 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     }
     
     @Override
-    public ServidorIndividual conectarServico(ServidorIndividual servico) throws RemoteException{
+    public int conectarServico(ServidorIndividual servico) throws RemoteException{
+        int returnStatus = -1;
         if(servico instanceof ServidorIndividual){
             boolean tempStatus = true;
             for(ServidorIndividual tempServ : _servicos){
                 if(tempServ.getName().compareTo(servico.getName()) == 0){
                     if(tempServ.getAddress().compareTo(servico.getAddress()) == 0){
-                        servico.setStatus(1);
+                        returnStatus = 1;
                     } else {
-                        servico.setStatus(0);
+                        returnStatus = 0;
                     }
                     tempStatus = false;
                 }
@@ -48,25 +49,20 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
             if(tempStatus == true){
                 _servicos.add(servico);
                 System.out.println(servico.getName() + " Conectado!");
-                try {
-                    averageServer temp = (averageServer) Naming.lookup(servico.getAddress());
-                    temp.getServico().setStatus(2);
-                } catch (NotBoundException ex) {
-                    Logger.getLogger(ServidorImpl.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(ServidorImpl.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               
+                returnStatus = 2;
+
             }
             
         } else {
             throw new Error("Servidor esperava um objeto do tipo ServidorIndividual, mas recebeu tipo não aceito.");
         }
         
-        return servico;
+        return returnStatus;
     }
     
     @Override
-    public boolean desconectarServico(ServidorIndividual servico){
+    public boolean desconectarServico(ServidorIndividual servico) throws RemoteException{
         List<ServidorIndividual> servicos = _servicos;
         for(ServidorIndividual server : servicos){
             if(servico == server){
@@ -79,7 +75,7 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     }
     
 
-    public boolean desconectarServico(String sServico){
+    public boolean desconectarServico(String sServico) throws RemoteException{
         List<ServidorIndividual> servicos = _servicos;
         for(ServidorIndividual server : servicos){
             if(server.getName().compareTo(sServico) == 0){
@@ -91,7 +87,37 @@ public class ServidorImpl extends UnicastRemoteObject implements Servidor{
     }
     
     @Override
-    public void desconectarTodosOsServicos(){
+    public void desconectarTodosOsServicos() throws RemoteException{
         _servicos.clear();
+    }
+    
+    @Override
+    public int verificaStatus(ServidorIndividual _servico) throws RemoteException{
+        int returnStatus = 3;
+        for(ServidorIndividual tempServ : _servicos){
+            if(tempServ.getName().compareTo(_servico.getName()) == 0){
+                if(tempServ.getAddress().compareTo(_servico.getAddress()) == 0){
+                    returnStatus = 4;
+                } 
+            }
+        }
+        
+        return returnStatus;
+    }
+    
+    @Override
+    public String listarServicosAtivos() throws RemoteException{
+        String returnString = "";
+        returnString += "Lista de Servidores ativos:\n";
+        if(_servicos.size() > 0){
+            for(ServidorIndividual tempServ : _servicos){
+                returnString += tempServ.getName() + " - " + tempServ.getAddress();
+            }
+        } else {
+            returnString += "Não há nenhum serviço ativo!";
+        }
+        returnString += "\n ------------------------------- \n";
+        
+        return returnString;
     }
 }

@@ -18,18 +18,10 @@ import java.util.List;
  *
  * @author Dell
  */
-public class averageServerImpl extends UnicastRemoteObject implements averageServer {
-    ServidorIndividual _servico = null;
+public class averageServerImpl extends UnicastRemoteObject implements avgServer {
     
     public averageServerImpl() throws RemoteException{
         super();
-    }
-    
-    
-    
-    @Override
-    public ServidorIndividual getServico() throws RemoteException{
-        return _servico;
     }
     
     @Override

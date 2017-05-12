@@ -40,17 +40,20 @@ public class appAverage {
                 System.exit(0);
             }
             
-            
-            ServidorIndividual _servico = new ServidorIndividual("Teste", "rmi://localhost:1100/AvgServer");
+
+            ServidorIndividual _servico = new ServidorIndividual("FazMedia", "rmi://localhost:1099/Average");
             
             while(entrada.compareTo("Desligar") != 0){
+                System.out.println("\nConectar - Conecta ao Servidor de Nomes");
+                System.out.println("Verificar - Verifica o Status de Conexão");
+                System.out.println("Desconectar - Desconecta do Servidor de Nomes");
+                System.out.println("Desligar - Inativa o serviço e desconecta o endereço da rede\n");
                 entrada = console.next();
                 switch(entrada){
                     case "Conectar":
-                        LocateRegistry.createRegistry(1100);
                         Naming.rebind(_servico.getAddress(), avgServer);
-                        
-                        System.out.println(_server.conectarServico(_servico).getStatusMessage());
+                        _servico.setStatus(_server.conectarServico(_servico));
+                        System.out.println(_servico.getStatusMessage());
                     break;
                     case "Desconectar":
                         if(_server.desconectarServico(_servico)){
@@ -58,6 +61,7 @@ public class appAverage {
                         }
                     break;
                     case "Verificar":
+                        _servico.setStatus(_server.verificaStatus(_servico));
                         System.out.println(_servico.getStatusMessage());
                     break;
                     case "Desligar":

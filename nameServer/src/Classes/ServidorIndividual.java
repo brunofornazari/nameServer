@@ -15,9 +15,9 @@ public class ServidorIndividual implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    private String _name;
-    private String _address;
-    private int _status;
+    private String _name = null;
+    private String _address = null;
+    private int _status = -1;
 
     public int getStatus() {
         return _status;
@@ -33,7 +33,11 @@ public class ServidorIndividual implements Serializable {
     }
 
     public String getName() {
-        return _name;
+        if(_name != null){
+            return _name;
+        } else {
+            return null;
+        }
     }
 
     public void setName(String _name) {
@@ -59,6 +63,12 @@ public class ServidorIndividual implements Serializable {
                 break;
             case 2 : 
                 _tempMessage = "Conectado ao servidor de nomes com sucesso!";
+                break;
+            case 3 :
+                _tempMessage = "Serviço não está conectado no momento.";
+                break;
+            case 4 : 
+                _tempMessage = "O Serviço está conectado.";
                 break;
             default : 
                 _tempMessage = "Não foi possível definir o estado de conexão, contate o administrador do sistema";

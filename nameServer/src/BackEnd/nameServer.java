@@ -29,10 +29,11 @@ public class nameServer {
             boolean isOnline = false;
             
             while(entrada.compareTo("Desligar") != 0){
-                System.out.println("Conectar - Conecta O Servidor de Nomes");
-                System.out.println("Desconectar Serviço - Desconecta um Serviço específico");
-                System.out.println("Desconectar Todos - Desconecta todos os serviços");
-                System.out.println("Desligar - Desativa o servidor de nomes");
+                System.out.println("\nConectar - Conecta O Servidor de Nomes");
+                System.out.println("Listar_Todos - Lista todos os serviços ativos");
+                System.out.println("Desconectar_Servico - Desconecta um Serviço específico");
+                System.out.println("Desconectar_Todos - Desconecta todos os serviços");
+                System.out.println("Desligar - Desativa o servidor de nomes\n");
                 
                 entrada = console.next();
                 
@@ -52,11 +53,14 @@ public class nameServer {
                             System.out.println("Servidor de Nomes já está online!");
                         }
                     break;
-                    case "Desconectar Todos":
+                    case "Desconectar_Todos":
                         _nameServer.desconectarTodosOsServicos();
                         System.out.println("Todos os serviços foram desconectados.");
                     break;
-                    case "Desconectar Serviço":
+                    case "Listar_Todos" : 
+                        System.out.println(_nameServer.listarServicosAtivos());
+                    break;
+                    case "Desconectar_Servico":
                         System.out.println("Digite o nome da função:");
                         String servico = console.next();
                         

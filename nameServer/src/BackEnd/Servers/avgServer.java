@@ -14,10 +14,8 @@ import java.rmi.RemoteException;
  *
  * @author Dell
  */
-public interface averageServer extends Remote {
-    
-    ServidorIndividual _servico = null;
+public interface avgServer extends Remote {
     
     public double calculaMedia(Usuario user, int mes, int ano) throws RemoteException;
-    public ServidorIndividual getServico() throws RemoteException;
+
 }
